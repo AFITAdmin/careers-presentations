@@ -4,59 +4,69 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>School Careers Lessons Resource System</title>
+
 <style>
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f4f9;
-      color: #333;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-      padding-bottom: 220px
-  }
-  h1 { margin-bottom: 10px; text-align:center; }
-  .subtitle { margin-bottom:20px; text-align:center; font-size:1rem; color:#666; }
+* { box-sizing: border-box; margin:0; padding:0; }
 
-  .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 20px;
-      width: 100%;
-      max-width: 1200px;
-      transition: opacity 0.4s ease, transform 0.4s ease;
-  }
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f4f9;
+    color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
-  .card {
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-      cursor: pointer;
-      text-align: center;
-      padding: 15px;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #fff;
-  }
-  .card:hover, .card:focus {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-  }
-  .card img {
-      width: 80px;
-      height: 80px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 10px;
-  }
-  .card h2 { font-size: 1rem; text-align: center; margin-bottom:5px; }
+h1 { margin-bottom: 10px; text-align:center; }
+.subtitle { margin-bottom:20px; text-align:center; font-size:1rem; color:#666; }
 
-/* =========================
-   TOP LEFT BACK BUTTON
-   ========================= */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.card {
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    cursor: pointer;
+    text-align: center;
+    padding: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    min-height: 160px;
+    justify-content: center;
+}
+
+.card:hover, .card:focus {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.card img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.card h2 { font-size: 0.85rem; text-align: center; }
+
+#levelsContainer {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 #backButton {
     position: absolute;
     top: 20px;
@@ -76,35 +86,6 @@
     transform: scale(1.05);
 }
 
-body.dark #backButton {
-    background: #f1f1f1;
-    color: #121212;
-}
-
-/* =========================
-   DARK MODE
-   ========================= */
-body.dark {
-    background: #121212;
-    color: #f1f1f1;
-}
-
-body.dark .subtitle {
-    color: #bbb;
-}
-
-body.dark .card {
-    box-shadow: 0 4px 12px rgba(255,255,255,0.08);
-}
-
-body.dark #backButton {
-    background: #f1f1f1;
-    color: #121212;
-}
-
-/* =========================
-   DARK MODE TOGGLE BUTTON
-   ========================= */
 #darkModeToggle {
     position: absolute;
     top: 20px;
@@ -119,50 +100,26 @@ body.dark #backButton {
     transition: all 0.8s ease;
 }
 
-#darkModeToggle:hover {
-    opacity: 0.85;
-}
+#darkModeToggle:hover { opacity: 0.85; }
 
-/* =========================
-   MORPH FADE TRANSITION
-   ========================= */
-.morph-out {
-    animation: morphOut 0.5s forwards ease;
-}
+body.dark { background: #121212; color: #f1f1f1; }
+body.dark .subtitle { color: #bbb; }
+body.dark .card { box-shadow: 0 4px 12px rgba(255,255,255,0.08); }
+body.dark #backButton { background:#f1f1f1; color:#121212; }
 
-.morph-in {
-    animation: morphIn 0.6s forwards cubic-bezier(.25,.8,.25,1);
-}
+.morph-out { animation: morphOut 0.5s forwards ease; }
+.morph-in { animation: morphIn 0.6s forwards cubic-bezier(.25,.8,.25,1); }
 
 @keyframes morphOut {
-    0% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-        filter: blur(0px);
-    }
-    100% {
-        opacity: 0;
-        transform: scale(0.95) translateY(10px);
-        filter: blur(4px);
-    }
+    0% { opacity:1; transform:scale(1) translateY(0); filter:blur(0); }
+    100% { opacity:0; transform:scale(0.95) translateY(10px); filter:blur(4px); }
 }
 
 @keyframes morphIn {
-    0% {
-        opacity: 0;
-        transform: scale(1.05) translateY(-10px);
-        filter: blur(4px);
-    }
-    100% {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-        filter: blur(0px);
-    }
+    0% { opacity:0; transform:scale(1.05) translateY(-10px); filter:blur(4px); }
+    100% { opacity:1; transform:scale(1) translateY(0); filter:blur(0); }
 }
 
-/* =========================
-   LOWER INFORMATION PANEL
-   ========================= */
 #infoPanel {
     position: fixed;
     bottom: 0;
@@ -173,8 +130,14 @@ body.dark #backButton {
     border-top: 4px solid #01478b;
     padding: 20px;
     box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
-    transition: all 0.4s ease;
-    overflow-y: auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+#infoPanel.active {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 body.dark #infoPanel {
@@ -182,344 +145,101 @@ body.dark #infoPanel {
     border-top: 4px solid #5c2083;
 }
 
-#infoContent {
-    max-width: 1200px;
-    margin: auto;
-}
+#infoContent { max-width: 1200px; margin:auto; }
+#infoTitle { margin-bottom:10px; font-size:1.2rem; }
+#infoText { font-size:0.95rem; line-height:1.5; }
 
-#infoTitle {
-    margin-bottom: 10px;
-    font-size: 1.2rem;
-}
+@media (max-width: 900px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .grid { grid-template-columns: 1fr; } }
 
-#infoText {
-    font-size: 0.95rem;
-    line-height: 1.5;
-}
 </style>
 </head>
+
 <body>
 
 <button id="darkModeToggle">Dark Mode</button>
-
 <h1>Careers Lessons Resource System</h1>
-<p class="subtitle">Click a card to navigate through PDS → Learning Area → Learning Element</p>
-
+<p class="subtitle">Select a card to navigate</p>
 <button id="backButton">Back</button>
 <div id="levelsContainer"></div>
 
+<div id="infoPanel">
+  <div id="infoContent">
+    <h2 id="infoTitle"></h2>
+    <p id="infoText"></p>
+  </div>
+</div>
+
 <script>
-/* =========================
-   DATA STRUCTURE
-   ========================= */
-const careersData = [
-  {
-    name: "PDS 2", color:"#006f7c", areas:[
-      {
-        name:"GrowThroughoutLife", color:"#03953e", elements:[
-          "Seeking and Responding to Help and Feedback",
-          "Linking learning to your future",
-          "Embracing Challenges: Growing Through New Experiences",
-          "Recognising and Recording Achievements",
-          "Understanding Ourselves and Others",
-          "Celebrating Achievements and Reflections"
-        ]
-      },
-      {
-        name:"ExplorePossibilities", color:"#de460d", elements:[
-          "Common Sources of Information about Labour Market",
-          "Classifying Jobs",
-          "Education and Career Progression",
-          "Identifying Personal Job Interests",
-          "Status in Careers",
-          "Recruitment"
-        ]
-      },
-      {
-        name:"ManagingCareer", color:"#01478b", elements:[
-          "Understanding Career Choices",
-          "Creating Step-by-Step Career Plans",
-          "Backups and options",
-          "Achievements and Challenges",
-          "Transitions through life",
-          "Setbacks and Challenges"
-        ]
-      },
-      {
-        name:"CreateOpportunities", color:"#ed8b00", elements:[
-          "Building Relationships",
-          "Taking Initiative",
-          "Jobs of the future",
-          "Relations and Communication",
-          "Role Models",
-          "Self employment & entrepreneurialism"
-        ]
-      },
-      {
-        name:"BalanceWorkLife", color:"#5c2083", elements:[
-          "Work Life Balance",
-          "Life Stages",
-          "Work-Life Balance and Wellbeing",
-          "Money and Financial Decisions",
-          "Community Involvement, Charity Work, and Career Implications",
-          "Rights, Responsibilities, and Challenging Unfair Barriers"
-        ]
-      },
-      {
-        name:"SeeTheBigPicture", color:"#ee4d97", elements:[
-          "Evaluating Information and Media Reliability",
-          "Understanding Labour Market Trends",
-          "The Impact of Science and Technology on Careers",
-          "Careers and the Environment",
-          "The Relationship Between Career, Community, and Society Market Trends",
-          "Careers and Society"
-        ]
-      }
-    ]
-  },
-  {
-    name: "PDS 3", color:"#006f7c", areas: [
-	{
-        name:"GrowThroughoutLife", color:"#03953e", elements:[
-          "Seeking and Responding to Help and Feedback",
-          "Linking learning to your future",
-          "Embracing Challenges: Growing Through New Experiences",
-          "Recognising and Recording Achievements",
-          "Understanding Ourselves and Others",
-          "Celebrating Achievements and Reflections"
-        ]
-      },
-      {
-        name:"ExplorePossibilities", color:"#de460d", elements:[
-          "Common Sources of Information about Labour Market",
-          "Classifying Jobs",
-          "Education and Career Progression",
-          "Identifying Personal Job Interests",
-          "Status in Careers",
-          "Recruitment"
-        ]
-      },
-      {
-        name:"ManagingCareer", color:"#01478b", elements:[
-          "Understanding Career Choices",
-          "Creating Step-by-Step Career Plans",
-          "Backups and options",
-          "Achievements and Challenges",
-          "Transitions through life",
-          "Setbacks and Challenges"
-        ]
-      },
-      {
-        name:"CreateOpportunities", color:"#ed8b00", elements:[
-          "Building Relationships",
-          "Taking Initiative",
-          "Jobs of the future",
-          "Relations and Communication",
-          "Role Models",
-          "Self employment & entrepreneurialism"
-        ]
-      },
-      {
-        name:"BalanceWorkLife", color:"#5c2083", elements:[
-          "Work Life Balance",
-          "Life Stages",
-          "Work-Life Balance and Wellbeing",
-          "Money and Financial Decisions",
-          "Community Involvement, Charity Work, and Career Implications",
-          "Rights, Responsibilities, and Challenging Unfair Barriers"
-        ]
-      },
-      {
-        name:"SeeTheBigPicture", color:"#ee4d97", elements:[
-          "Evaluating Information and Media Reliability",
-          "Understanding Labour Market Trends",
-          "The Impact of Science and Technology on Careers",
-          "Careers and the Environment",
-          "The Relationship Between Career, Community, and Society Market Trends",
-          "Careers and Society"
-        ]
-      }
-    ]
-  },
-  {
-    name: "PDS 4", color:"#006f7c", areas: [
-	{
-        name:"GrowThroughoutLife", color:"#03953e", elements:[
-          "Seeking and Responding to Help and Feedback",
-          "Linking learning to your future",
-          "Embracing Challenges: Growing Through New Experiences",
-          "Recognising and Recording Achievements",
-          "Understanding Ourselves and Others",
-          "Celebrating Achievements and Reflections"
-        ]
-      },
-      {
-        name:"ExplorePossibilities", color:"#de460d", elements:[
-          "Common Sources of Information about Labour Market",
-          "Classifying Jobs",
-          "Education and Career Progression",
-          "Identifying Personal Job Interests",
-          "Status in Careers",
-          "Recruitment"
-        ]
-      },
-      {
-        name:"ManagingCareer", color:"#01478b", elements:[
-          "Understanding Career Choices",
-          "Creating Step-by-Step Career Plans",
-          "Backups and options",
-          "Achievements and Challenges",
-          "Transitions through life",
-          "Setbacks and Challenges"
-        ]
-      },
-      {
-        name:"CreateOpportunities", color:"#ed8b00", elements:[
-          "Building Relationships",
-          "Taking Initiative",
-          "Jobs of the future",
-          "Relations and Communication",
-          "Role Models",
-          "Self employment & entrepreneurialism"
-        ]
-      },
-      {
-        name:"BalanceWorkLife", color:"#5c2083", elements:[
-          "Work Life Balance",
-          "Life Stages",
-          "Work-Life Balance and Wellbeing",
-          "Money and Financial Decisions",
-          "Community Involvement, Charity Work, and Career Implications",
-          "Rights, Responsibilities, and Challenging Unfair Barriers"
-        ]
-      },
-      {
-        name:"SeeTheBigPicture", color:"#ee4d97", elements:[
-          "Evaluating Information and Media Reliability",
-          "Understanding Labour Market Trends",
-          "The Impact of Science and Technology on Careers",
-          "Careers and the Environment",
-          "The Relationship Between Career, Community, and Society Market Trends",
-          "Careers and Society"
-        ]
-      }
-    ]
-  }
-];
 
-/* =========================
-   PROGRESSION TEXT DATA
-   ========================= */
-
-const progressionData = {
-  "PDS 2": {
-    GrowThroughoutLife: {
-      title: "Growing Through Reflection and Openness",
-      text: "I can recognise that learning and growth happen through reflection, challenge, and openness to different people and experiences.\n\nAt this stage, pupils begin to understand that personal growth happens not just through success, but through reflection and challenge. They explore how experiences help them grow and recognise learning as lifelong."
-    },
-    ExplorePossibilities: {
-      title: "Discovering Interests and Careers",
-      text: "I can explore different jobs by thinking about what interests me, the skills they require, and how my school choices connect to future opportunities.\n\nPupils begin linking interests and subjects to possible careers and exploring the world of work."
-    },
-    ManagingCareer: {
-      title: "Understanding What a Career Means",
-      text: "I can explore different career options and begin setting simple goals.\n\nPupils explore what a career means and recognise it is built over time."
-    },
-    CreateOpportunities: {
-      title: "Exploring Careers and Learning from Others",
-      text: "I can understand how opportunities are created through relationships and teamwork.\n\nPupils learn that careers are built through collaboration and role models."
-    },
-    BalanceWorkLife: {
-      title: "Understanding Balance and Well-Being",
-      text: "I can understand how work and life are connected and how balance affects well-being and opportunities.\n\nPupils explore how balance influences happiness and success."
-    },
-    SeeTheBigPicture: {
-      title: "Understanding the World of Work",
-      text: "I can begin to recognise how trends, technology, and the environment influence work.\n\nPupils develop awareness of wider influences on careers."
-    }
-  },
-
-  "PDS 3": {
-    GrowThroughoutLife: {
-      title: "Embracing Feedback and Self-Awareness",
-      text: "I can recognise how learning, feedback, and self-awareness help me grow.\n\nPupils reflect on strengths and areas for growth, building resilience and identity awareness."
-    },
-    ExplorePossibilities: {
-      title: "Broadening Horizons and Understanding Pathways",
-      text: "I can explore a wide range of jobs, learning pathways, and qualifications.\n\nPupils investigate recruitment and broader pathways."
-    },
-    ManagingCareer: {
-      title: "Planning Ahead and Being Flexible",
-      text: "I can build relationships and recognise creativity and leadership in building a career.\n\nPupils develop planning skills and adaptability."
-    },
-    CreateOpportunities: {
-      title: "Building Initiative and Leadership Skills",
-      text: "I can take initiative and develop leadership and entrepreneurial thinking.\n\nPupils develop proactive attitudes and confidence."
-    },
-    BalanceWorkLife: {
-      title: "Recognising Responsibilities and Managing Balance",
-      text: "I can recognise the importance of work-life balance and managing responsibilities.\n\nPupils build healthy habits and self-awareness."
-    },
-    SeeTheBigPicture: {
-      title: "Exploring How the World Shapes Careers",
-      text: "I can understand how technology, society, and the economy influence careers.\n\nPupils think strategically about external influences."
-    }
-  },
-
-  "PDS 4": {
-    GrowThroughoutLife: {
-      title: "Taking Responsibility for Growth",
-      text: "I can take responsibility for my growth by embracing feedback and setting learning goals.\n\nPupils take ownership of long-term development."
-    },
-    ExplorePossibilities: {
-      title: "Researching Careers and Preparing for Success",
-      text: "I can research career options and understand recruitment processes.\n\nPupils prepare for applications and interviews."
-    },
-    ManagingCareer: {
-      title: "Making Decisions and Managing Change",
-      text: "I can take responsibility for my career and adapt my strategies.\n\nPupils develop confident self-advocacy."
-    },
-    CreateOpportunities: {
-      title: "Taking Ownership and Leading with Confidence",
-      text: "I can reflect on my progress and advocate for my goals.\n\nPupils strengthen independence and leadership capacity."
-    },
-    BalanceWorkLife: {
-      title: "Reflecting on Life, Work, and Financial Realities",
-      text: "I can reflect on balancing work, life, well-being, finances, and responsibilities.\n\nPupils consider adult responsibilities and lifestyle decisions."
-    },
-    SeeTheBigPicture: {
-      title: "Evaluating Trends and Making Informed Decisions",
-      text: "I can critically evaluate how trends shape career opportunities.\n\nPupils develop critical thinking and informed decision-making."
-    }
-  }
-};
-
-
-/* =========================
-   GLOBAL STATE
-   ========================= */
+let careersData = null;
 let levelHistory = [];
+let currentPDS = null;
+
 const levelsContainer = document.getElementById('levelsContainer');
 const backButton = document.getElementById('backButton');
 const darkModeToggle = document.getElementById('darkModeToggle');
 
 /* =========================
-   DARK MODE TOGGLE
-   ========================= */
-if(darkModeToggle){
-  darkModeToggle.addEventListener("click", () => {
-    document.body.classList.toggle("dark");
+   LOAD JSON
+========================= */
 
-    darkModeToggle.textContent =
-      document.body.classList.contains("dark")
-        ? "Light Mode"
-        : "Dark Mode";
+fetch("data/careers.json")
+  .then(res => res.json())
+  .then(data => {
+    careersData = buildStructure(data);
+    levelsContainer.appendChild(generateCards(careersData, "PDS"));
+  })
+  .catch(err => console.error("JSON Load Error:", err));
+
+
+/* =========================
+   BUILD STRUCTURE
+========================= */
+
+function buildStructure(data){
+
+  const { pdsLevels, baseAreas } = data;
+
+  return pdsLevels.map(pds => {
+
+    return {
+      name: pds.name,
+      number: pds.number,
+      color: pds.color,
+      areas: baseAreas.map(area => {
+
+        return {
+          name: area.name,
+          letter: area.letter,
+          color: area.color,
+          elements: area.elements.map((title, index) => {
+
+            const elementNumber = String(index + 1).padStart(2,"0");
+
+            return {
+              title: title,
+              pdsNumber: pds.number,
+              areaName: area.name,
+              letter: area.letter,
+              code: `${pds.number}.${area.letter}.${elementNumber}`
+            };
+
+          })
+        };
+
+      })
+    };
+
   });
+
 }
+
 
 /* =========================
    GENERATE CARDS
-   ========================= */
+========================= */
+
 function generateCards(items, type){
 
   const container = document.createElement('div');
@@ -530,33 +250,32 @@ function generateCards(items, type){
     const card = document.createElement('div');
     card.classList.add('card');
 
-    /* Set background colour */
     if(type === "PDS" || type === "Area"){
       card.style.backgroundColor = item.color;
     } else {
       card.style.backgroundColor = "#333";
     }
 
-    /* Image */
     const img = document.createElement('img');
-    img.src = type === "Element"
-      ? "images/icons/default.jpg"
-      : `images/icons/${item.name}.jpg`;
-    img.alt = item.name || item;
+
+    if(type === "Element"){
+      img.src = "images/icons/default.jpg";
+      img.alt = item.title;
+    } else {
+      img.src = `images/icons/${item.name}.jpg`;
+      img.alt = item.name;
+    }
+
     card.appendChild(img);
 
-    /* Title */
     const h2 = document.createElement('h2');
-    h2.textContent = item.name || item;
+    h2.textContent = type === "Element" ? item.title : item.name;
     card.appendChild(h2);
 
-    /* =========================
-       CLICK BEHAVIOUR
-       ========================= */
     card.addEventListener('click', () => {
 
       if(type === "PDS"){
-        currentPDS = item.name; // store active PDS
+        currentPDS = item;
         pushLevel(generateCards(item.areas, "Area"));
       }
 
@@ -570,27 +289,7 @@ function generateCards(items, type){
 
     });
 
-    /* =========================
-       HOVER BEHAVIOUR (LEVEL 2)
-       ========================= */
-    if(type === "Area"){
-
-      card.addEventListener("mouseenter", () => {
-
-        if(currentPDS && progressionData[currentPDS] && progressionData[currentPDS][item.name]){
-
-          const data = progressionData[currentPDS][item.name];
-
-          document.getElementById("infoTitle").textContent = data.title;
-          document.getElementById("infoText").textContent = data.text;
-        }
-
-      });
-
-    }
-
     container.appendChild(card);
-
   });
 
   return container;
@@ -598,81 +297,67 @@ function generateCards(items, type){
 
 
 /* =========================
-   KIOSK MODE OPEN (FINAL LEVEL)
-   ========================= */
+   OPEN PRESENTATION
+========================= */
+
 function openKiosk(item){
-  const fileName = item.replace(/\s+/g,'_') + ".html";
-  const url = `presentations/${fileName}`;
 
-  // Navigate in same tab
-  window.location.href = url;
+  const path = `presentations/PDS ${item.pdsNumber}/${item.areaName}/${item.code}.html`;
 
-  // Attempt fullscreen (must be triggered by user interaction)
-  if (document.documentElement.requestFullscreen) {
-    document.documentElement.requestFullscreen().catch(() => {});
-  }
+  window.open(path, "_blank");
 }
 
+
 /* =========================
-   PUSH NEW LEVEL (MORPH)
-   ========================= */
+   NAVIGATION
+========================= */
+
 function pushLevel(levelDiv){
+
   if(levelsContainer.firstChild){
+
     const current = levelsContainer.firstChild;
-    current.classList.remove("morph-in");
-    current.classList.add("morph-out");
+    current.classList.replace("morph-in","morph-out");
 
     setTimeout(() => {
       levelsContainer.removeChild(current);
       levelHistory.push(current);
       levelsContainer.appendChild(levelDiv);
     }, 500);
+
   } else {
     levelsContainer.appendChild(levelDiv);
   }
 }
 
-/* =========================
-   BACK BUTTON (MORPH)
-   ========================= */
 backButton.addEventListener('click', () => {
 
   if(levelHistory.length > 0){
 
     const current = levelsContainer.firstChild;
-    current.classList.remove("morph-in");
-    current.classList.add("morph-out");
+    current.classList.replace("morph-in","morph-out");
 
     setTimeout(() => {
       levelsContainer.removeChild(current);
-
       const previous = levelHistory.pop();
-      previous.classList.remove("morph-out");
-      previous.classList.add("morph-in");
-
+      previous.classList.replace("morph-out","morph-in");
       levelsContainer.appendChild(previous);
     }, 500);
   }
 
 });
 
+
 /* =========================
-   INITIAL LOAD
-   ========================= */
-function init(){
-  levelsContainer.innerHTML = "";
-  levelsContainer.appendChild(generateCards(careersData, "PDS"));
-}
-init();
+   DARK MODE
+========================= */
+
+darkModeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+  darkModeToggle.textContent =
+    document.body.classList.contains("dark") ? "Light Mode" : "Dark Mode";
+});
+
 </script>
-
-<div id="levelsContainer"></div>
-<div id="infoPanel">
-  <div id="infoContent">
-    <h2 id="infoTitle">Learning Area Overview</h2>
-    <p id="infoText">Hover over a learning area to see progression details for the selected PDS level.</p>
-  </div>
-</div>
-
 </body>
 </html>
